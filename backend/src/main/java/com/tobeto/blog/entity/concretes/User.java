@@ -5,6 +5,7 @@ import com.tobeto.blog.entity.abstracts.BaseEntity;
 import com.tobeto.blog.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,10 +39,6 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Comment> commentList;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Admin> admins;
 
     @Column(name="roles")
     @Enumerated(EnumType.STRING)

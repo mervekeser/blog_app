@@ -2,8 +2,10 @@ package com.tobeto.blog.service.abstracts;
 
 import com.tobeto.blog.service.dtos.requests.post.AddPostRequest;
 import com.tobeto.blog.service.dtos.requests.post.UpdatePostRequest;
-import com.tobeto.blog.service.dtos.responses.post.GetPostListResponse;
-import com.tobeto.blog.service.dtos.responses.post.GetPostResponse;
+import com.tobeto.blog.service.dtos.responses.post.*;
+import com.tobeto.blog.service.paging.PageInfo;
+import com.tobeto.blog.service.responses.GetListResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 

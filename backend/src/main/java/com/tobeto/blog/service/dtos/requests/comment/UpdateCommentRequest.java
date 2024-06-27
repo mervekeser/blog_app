@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCommentRequest implements CommentRequest{
+public class UpdateCommentRequest{
     @NotNull(message = Messages.IdMessages.ID_NOT_NULL)
     @Positive(message = Messages.IdMessages.ID_NOT_NEGATIVE)
     private Integer id;
@@ -28,8 +28,5 @@ public class UpdateCommentRequest implements CommentRequest{
     @Positive(message = Messages.IdMessages.ID_NOT_NEGATIVE)
     private Integer userId;
 
-    @Override
-    public String getContent() {
-        return content;
-    }
+
 }

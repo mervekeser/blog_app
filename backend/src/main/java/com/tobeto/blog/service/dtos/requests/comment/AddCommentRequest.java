@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCommentRequest implements CommentRequest{
+public class AddCommentRequest {
 
     @NotBlank(message = Messages.CommentMessages.CONTENT_NOT_BLANK)
     private String content;
@@ -24,8 +24,5 @@ public class AddCommentRequest implements CommentRequest{
     @Positive(message = Messages.IdMessages.ID_NOT_NEGATIVE)
     private Integer userId;
 
-    @Override
-    public String getContent() {
-        return content;
-    }
+
 }

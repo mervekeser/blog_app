@@ -1,6 +1,7 @@
 package com.tobeto.blog.service.abstracts;
 
 import com.tobeto.blog.entity.concretes.User;
+import com.tobeto.blog.service.dtos.requests.user.AddUserRequest;
 import com.tobeto.blog.service.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.blog.service.dtos.responses.user.GetUserListResponse;
 import com.tobeto.blog.service.dtos.responses.user.GetUserResponse;

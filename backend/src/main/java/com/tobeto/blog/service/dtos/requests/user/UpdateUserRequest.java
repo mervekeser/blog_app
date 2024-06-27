@@ -5,10 +5,8 @@ import com.tobeto.blog.service.constants.Messages;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,7 +14,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UpdateUserRequest {
+    @NotNull(message = Messages.IdMessages.ID_NOT_NULL)
+    @Positive(message = Messages.IdMessages.ID_NOT_NEGATIVE)
     private int id;
 
     @NotNull(message = Messages.UserMessage.USER_NAME_NOT_BLANK)

@@ -29,9 +29,6 @@ public class Messages {
         public static final String USER_ONLY_LETTERS_REGEX = "^[a-zA-ZğüşıöçĞÜŞİÖÇ]+$";
     }
 
-    public class AdminMessage{
-        public static final String ADMIN_NOT_FOUND = " nolu id'ye sahip Admin bulunamadı.";
-    }
 
     public class GeneralMessage{
         public static final String WRONG_INFORMATION = "Bilgiler hatalı!";

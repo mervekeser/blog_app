@@ -1,63 +1,56 @@
 package com.tobeto.blog.service.concretes;
 
-import com.tobeto.blog.core.utilities.mappers.ModelMapperService;
 import com.tobeto.blog.entity.concretes.Comment;
 import com.tobeto.blog.repository.CommentRepository;
 import com.tobeto.blog.service.abstracts.CommentService;
+import com.tobeto.blog.service.abstracts.PostService;
+import com.tobeto.blog.service.constants.Messages;
 import com.tobeto.blog.service.dtos.requests.comment.AddCommentRequest;
 import com.tobeto.blog.service.dtos.requests.comment.UpdateCommentRequest;
 import com.tobeto.blog.service.dtos.responses.comment.GetCommentListResponse;
 import com.tobeto.blog.service.dtos.responses.comment.GetCommentResponse;
+import com.tobeto.blog.service.mappers.CommentMapper;
 import com.tobeto.blog.service.rules.CommentBusinessRules;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CommentManager implements CommentService {
 
     private final CommentRepository commentRepository;
     private final CommentBusinessRules commentBusinessRules;
-    private  ModelMapperService modelMapperService;
+    private final CommentMapper commentMapper;
 
     @Override
     public GetCommentResponse getById(int id) {
-        Comment comment = commentBusinessRules.checkByCommentId(id);
-        GetCommentResponse commentResponse = modelMapperService.forResponse()
-                .map(comment, GetCommentResponse.class);
-        return commentResponse;
+        commentBusinessRules.checkByCommentId(id);
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException(Messages.CommentMessages.COMMENT_NOT_FOUND + id));
+        return commentMapper.commentToGetCommentResponse(comment);
     }
 
     @Override
     public List<GetCommentListResponse> getAll() {
-        List<Comment> commentList = commentRepository.findAll();
-
-        List<GetCommentListResponse> commentListResponses = commentList.stream()
-                .map(comment -> this.modelMapperService.forResponse()
-                        .map(comment, GetCommentListResponse.class)).collect(Collectors.toList());
-        return commentListResponses;
+        return commentRepository.findAll().stream()
+                .map(commentMapper::commentToGetCommentListResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void add(AddCommentRequest addCommentRequest) {
-        //commentBusinessRules.validateComment(addCommentRequest);
-        Comment comment = this.modelMapperService.forRequest()
-                .map(addCommentRequest, Comment.class);
-
+        Comment comment = CommentMapper.INSTANCE.addCommentRequest(addCommentRequest);
         commentRepository.save(comment);
 
     }
 
     @Override
     public void update(UpdateCommentRequest updateCommentRequest) {
-        commentBusinessRules.validateComment(updateCommentRequest);
-        commentBusinessRules.checkByCommentId(updateCommentRequest.getId());
-        Comment comment = this.modelMapperService.forRequest()
-                .map(updateCommentRequest, Comment.class);
-
+        Comment comment = CommentMapper.INSTANCE.updateCommentRequest(updateCommentRequest);
         commentRepository.save(comment);
     }
 

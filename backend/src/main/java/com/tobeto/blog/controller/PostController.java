@@ -5,8 +5,11 @@ import com.tobeto.blog.service.dtos.requests.post.AddPostRequest;
 import com.tobeto.blog.service.dtos.requests.post.UpdatePostRequest;
 import com.tobeto.blog.service.dtos.responses.post.GetPostListResponse;
 import com.tobeto.blog.service.dtos.responses.post.GetPostResponse;
+import com.tobeto.blog.service.paging.PageInfo;
+import com.tobeto.blog.service.responses.GetListResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +27,8 @@ public class PostController {
         return postService.getAll();
     }
 
-    @GetMapping("{id}")
+
+    @GetMapping("/{id}")
     public GetPostResponse getById(int id){
         return postService.getById(id);
     }

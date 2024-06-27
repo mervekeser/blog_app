@@ -1,28 +1,30 @@
 package com.tobeto.blog.service.concretes;
 
-import com.tobeto.blog.core.utilities.mappers.ModelMapperService;
 import com.tobeto.blog.entity.concretes.User;
 import com.tobeto.blog.repository.UserRepository;
 import com.tobeto.blog.service.abstracts.UserService;
 import com.tobeto.blog.service.constants.Messages;
+import com.tobeto.blog.service.dtos.requests.user.AddUserRequest;
 import com.tobeto.blog.service.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.blog.service.dtos.responses.user.GetUserListResponse;
 import com.tobeto.blog.service.dtos.responses.user.GetUserResponse;
+import com.tobeto.blog.service.mappers.UserMapper;
 import com.tobeto.blog.service.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class UserManager implements UserService {
+public class UserManager  implements UserService{
     private final UserRepository userRepository;
-    private final ModelMapperService modelMapperService;
     private final UserBusinessRules userBusinessRules;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Override
     public User getByEmail(String email) {
@@ -31,42 +33,31 @@ public class UserManager implements UserService {
 
     @Override
     public GetUserResponse getById(int id) {
-        User user = userBusinessRules.checkByUserId(id);
-        GetUserResponse userResponse = modelMapperService.forResponse().map(user, GetUserResponse.class);
-        return userResponse;
+        userBusinessRules.checkByUserId(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException(Messages.UserMessage.USER_NOT_FOUND));
+        return userMapper.getUserResponse(user);
     }
 
     @Override
     public List<GetUserListResponse> getAll() {
-        List<User> userList = userRepository.findAll();
-
-        List<GetUserListResponse> userResponse = userList.stream()
-                .map(user ->this.modelMapperService.forResponse()
-                        .map(user, GetUserListResponse.class)).collect(Collectors.toList());
-
-
-        return userResponse;
+        return userRepository.findAll().stream()
+                .map(userMapper::getUserListResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void add(User addUserRequest) {
-        User user = this.modelMapperService.forRequest()
-                .map(addUserRequest, User.class);
-
-        user.setEmail(user.getEmail().trim().toLowerCase());
-
-        userRepository.save(user);
+        //userBusinessRules.checkByUserId(addUserRequest.getId());
+         userRepository.save(addUserRequest);
     }
 
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
-        User user = this.modelMapperService.forRequest()
-                .map(updateUserRequest, User.class);
-
-        user.setEmail(user.getEmail().trim().toLowerCase());
-        //Şifreyi güncellerken passwordEncoder ile kripto olarak güncelleme işlemi
-        user.setPassword(passwordEncoder.encode(updateUserRequest.getPassword()));
-
+        userBusinessRules.checkByUserId(updateUserRequest.getId());
+        User user = userRepository.findById(updateUserRequest.getId())
+                        .orElseThrow(()-> new RuntimeException(Messages.UserMessage.USER_NOT_FOUND));
+        user.setPassword(updateUserRequest.getPassword());
         userRepository.save(user);
     }
 
