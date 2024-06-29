@@ -8,14 +8,10 @@ import com.tobeto.blog.service.dtos.requests.post.AddPostRequest;
 import com.tobeto.blog.service.dtos.requests.post.UpdatePostRequest;
 import com.tobeto.blog.service.dtos.responses.post.*;
 import com.tobeto.blog.service.mappers.PostMapper;
-import com.tobeto.blog.service.paging.PageInfo;
-import com.tobeto.blog.service.responses.GetListResponse;
 import com.tobeto.blog.service.rules.PostBusinessRules;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +38,11 @@ public class PostManager implements PostService {
        return postRepository.findAll().stream()
                 .map(postMapper::postToGetPostListResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Post> findAllPost(int page, int offset) {
+        return postRepository.findAll(PageRequest.of(page, offset));
     }
 
 

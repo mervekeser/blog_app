@@ -1,5 +1,6 @@
 package com.tobeto.blog.controller;
 
+import com.tobeto.blog.entity.concretes.Post;
 import com.tobeto.blog.service.abstracts.PostService;
 import com.tobeto.blog.service.dtos.requests.post.AddPostRequest;
 import com.tobeto.blog.service.dtos.requests.post.UpdatePostRequest;
@@ -27,7 +28,11 @@ public class PostController {
         return postService.getAll();
     }
 
-
+    @GetMapping("/page")
+    public Page<Post> getAllPost(@RequestParam(value = "page")int page, @RequestParam(value = "offset")int offset){
+        return postService.findAllPost(page, offset);
+        // todo entity dto'ya çevrilecek
+    }
     @GetMapping("/{id}")
     public GetPostResponse getById(int id){
         return postService.getById(id);
