@@ -50,6 +50,7 @@ public class CommentManager implements CommentService {
 
     @Override
     public void update(UpdateCommentRequest updateCommentRequest) {
+        commentBusinessRules.checkByCommentId(updateCommentRequest.getId());
         Comment comment = CommentMapper.INSTANCE.updateCommentRequest(updateCommentRequest);
         commentRepository.save(comment);
     }
