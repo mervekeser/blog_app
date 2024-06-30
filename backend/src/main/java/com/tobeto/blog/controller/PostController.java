@@ -29,9 +29,8 @@ public class PostController {
     }
 
     @GetMapping("/page")
-    public Page<Post> getAllPost(@RequestParam(value = "page")int page, @RequestParam(value = "offset")int offset){
+    public List<GetPostListResponse> getAllPost(@RequestParam(value = "page")int page, @RequestParam(value = "offset")int offset){
         return postService.findAllPost(page, offset);
-        // todo entity dto'ya çevrilecek
     }
     @GetMapping("/{id}")
     public GetPostResponse getById(int id){

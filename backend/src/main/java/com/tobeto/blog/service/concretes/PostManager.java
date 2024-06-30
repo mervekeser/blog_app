@@ -12,6 +12,7 @@ import com.tobeto.blog.service.rules.PostBusinessRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,8 +42,12 @@ public class PostManager implements PostService {
     }
 
     @Override
-    public Page<Post> findAllPost(int page, int offset) {
-        return postRepository.findAll(PageRequest.of(page, offset));
+    public List<GetPostListResponse> findAllPost(int page, int offset) {
+        Pageable pageable = PageRequest.of(page, offset);
+        Page<Post> response = postRepository.findAll(pageable);
+
+        List<GetPostListResponse> getPostListResponse = PostMapper.INSTANCE.postToGetPostListResponse(response);
+        return getPostListResponse;
     }
 
 

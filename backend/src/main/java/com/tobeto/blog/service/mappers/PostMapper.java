@@ -10,6 +10,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
@@ -17,7 +19,7 @@ public interface PostMapper {
 
     GetPostResponse postToGetPostResponse(Post post);
     GetPostListResponse postToGetPostListResponse(Post post);
-
+    List<GetPostListResponse> postToGetPostListResponse(Page<Post> postPage);
     //@Mapping(source = "userId", target = "user")
     Post addPostRequest(AddPostRequest addPostRequest);
 
