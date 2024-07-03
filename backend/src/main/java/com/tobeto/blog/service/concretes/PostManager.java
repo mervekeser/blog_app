@@ -42,7 +42,7 @@ public class PostManager implements PostService {
     }
 
     @Override
-    public List<GetPostListResponse> findAllPost(int page, int offset) {
+    public List<GetPostListResponse> getAllPostsPaginated(int page, int offset) {
         Pageable pageable = PageRequest.of(page, offset);
         Page<Post> response = postRepository.findAll(pageable);
 

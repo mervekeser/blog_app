@@ -12,7 +12,7 @@ public interface PostService {
 
     GetPostResponse getById(int id);
     List<GetPostListResponse> getAll();
-    List<GetPostListResponse> findAllPost(int page, int offset);
+    List<GetPostListResponse> getAllPostsPaginated(int page, int offset);
     void add(AddPostRequest addPostRequest);
     void update(UpdatePostRequest updatePostRequest);
     void delete(int id);

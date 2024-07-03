@@ -30,7 +30,7 @@ public class PostController {
 
     @GetMapping("/page")
     public List<GetPostListResponse> getAllPost(@RequestParam(value = "page")int page, @RequestParam(value = "offset")int offset){
-        return postService.findAllPost(page, offset);
+        return postService.getAllPostsPaginated(page, offset);
     }
     @GetMapping("/{id}")
     public GetPostResponse getById(int id){
