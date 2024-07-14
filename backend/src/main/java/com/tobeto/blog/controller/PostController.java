@@ -10,22 +10,25 @@ import com.tobeto.blog.service.paging.PageInfo;
 import com.tobeto.blog.service.responses.GetListResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/v1/posts")
 @CrossOrigin
 public class PostController {
-    private PostService postService;
+    private final PostService postService;
 
     @GetMapping("/getAll")
-    public List<GetPostListResponse> getAll(){
-        return postService.getAll();
+    public ResponseEntity<List<GetPostListResponse>> getAll(){
+        List<GetPostListResponse> getPostListResponses = postService.getAll();
+        return ResponseEntity.ok(getPostListResponses);
     }
 
     @GetMapping("/page")

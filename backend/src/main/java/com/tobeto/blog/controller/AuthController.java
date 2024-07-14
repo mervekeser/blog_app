@@ -5,11 +5,12 @@ import com.tobeto.blog.service.dtos.requests.authentication.AddAuthenticationReq
 import com.tobeto.blog.service.dtos.requests.user.AddUserRequest;
 import com.tobeto.blog.service.dtos.responses.authentication.GetAuthenticationResponse;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/v1/auth")
 @CrossOrigin
 public class AuthController {

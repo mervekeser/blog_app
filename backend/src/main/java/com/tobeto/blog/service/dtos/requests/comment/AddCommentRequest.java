@@ -9,8 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class AddCommentRequest {
 
     @NotBlank(message = Messages.CommentMessages.CONTENT_NOT_BLANK)

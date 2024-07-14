@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/v1/comments")
 @CrossOrigin
 public class CommentController {
-    private CommentService commentService;
+    private final CommentService commentService;
 
     @GetMapping("/getAll")
     public List<GetCommentListResponse> getAll(){

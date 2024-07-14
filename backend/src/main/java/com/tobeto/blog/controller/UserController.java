@@ -5,13 +5,14 @@ import com.tobeto.blog.service.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.blog.service.dtos.responses.user.GetUserListResponse;
 import com.tobeto.blog.service.dtos.responses.user.GetUserResponse;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/v1/users")
 @CrossOrigin
 public class UserController {

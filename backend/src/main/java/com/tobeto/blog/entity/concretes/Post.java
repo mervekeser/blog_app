@@ -17,10 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Post extends BaseEntity {
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
     private String content;
 
     @Column(name = "publication_date")

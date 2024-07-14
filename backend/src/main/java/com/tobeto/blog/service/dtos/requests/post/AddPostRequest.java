@@ -9,8 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class AddPostRequest {
     @NotBlank(message = Messages.PostMessages.TITLE_NOT_BLANK)
     private String title;

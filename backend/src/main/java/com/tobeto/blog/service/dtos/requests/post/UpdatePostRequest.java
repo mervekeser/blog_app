@@ -10,8 +10,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class UpdatePostRequest {
     @NotNull(message = Messages.IdMessages.ID_NOT_NULL)
     @Positive(message = Messages.IdMessages.ID_NOT_NEGATIVE)

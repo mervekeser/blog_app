@@ -14,10 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Comment extends BaseEntity {
 
-    @Column(name = "content")
     private String content;
 
-    @Column(name = "date")
     private LocalDate date;
 
     @ManyToOne

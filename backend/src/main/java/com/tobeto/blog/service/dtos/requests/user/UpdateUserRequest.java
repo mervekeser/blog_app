@@ -12,8 +12,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class UpdateUserRequest {
     @NotNull(message = Messages.IdMessages.ID_NOT_NULL)

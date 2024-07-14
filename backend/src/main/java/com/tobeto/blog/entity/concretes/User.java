@@ -20,16 +20,13 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class User extends BaseEntity implements UserDetails {
-    @Column(name = "name")
+
     private String name;
 
-    @Column(name = "surname")
     private String surname;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "user")

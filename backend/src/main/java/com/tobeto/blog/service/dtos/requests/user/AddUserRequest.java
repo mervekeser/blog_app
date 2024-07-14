@@ -12,8 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class AddUserRequest {
     @NotNull(message = Messages.UserMessage.USER_NAME_NOT_BLANK)
     @Pattern(regexp = Messages.UserMessage.USER_ONLY_LETTERS_REGEX, message = Messages.UserMessage.USER_NAME_ONLY_LETTERS)
@@ -23,7 +21,7 @@ public class AddUserRequest {
     @Pattern(regexp = Messages.UserMessage.USER_ONLY_LETTERS_REGEX, message = Messages.UserMessage.USER_SURNAME_ONLY_LETTERS)
     private String surname;
 
-    @Email(message = Messages.UserMessage.ENTER_VALID_EMAIL)
+    @Email(message = Messages.UserMessage.ENTER_VALID_EMAIL, regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
     private String email;
 
     private String password;
